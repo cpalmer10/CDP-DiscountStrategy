@@ -12,10 +12,17 @@ package CDP.DiscountStrategy;
 public class Receipt {
     private Customer customer;
     private DataStore dataStore;
+    private LineItem[] lineItems;
 
     public Receipt(String customerId, DataStore dataStore) {
         this.dataStore = dataStore;
         customer = dataStore.findCustomerById(customerId);
+        lineItems = new LineItem[0];
+    }
+
+    public final void addProduct(String productId, int quantity, DataStore dataStore) {
+        LineItem item = new LineItem(productId, quantity, dataStore);
+        
     }
     
 }
