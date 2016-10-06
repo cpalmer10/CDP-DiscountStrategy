@@ -5,6 +5,11 @@
  */
 package CDP.DiscountStrategy;
 
+import OutputStrategy.ConsoleOutput;
+import POSTerminal.Register;
+import StorageStrategy.DataStore;
+import StorageStrategy.InMemoryDatabase;
+
 /**
  *
  * @author Chris
@@ -16,13 +21,21 @@ public class Startup {
      */
     public static void main(String[] args) {
         Register register = new Register();
+        DataStore dataStore = new InMemoryDatabase();
         
-        // customer  #C100
-        register.startNewSaleForCustomerId("C100");
-        register.addProductToSale("A101", 2);
-        register.addProductToSale("B200", 3);
-        register.addProductToSale("P400", 1);
-        register.endSale();
+        
+         //customer  #C100
+        
+        
+        register.startNewSaleForCustomerId("C100", dataStore);
+        register.addProductToSale("P100", 2, dataStore);
+        register.addProductToSale("P101", 3, dataStore);
+        register.addProductToSale("P102", 1, dataStore);
+        register.endSale(new ConsoleOutput());
     }
+    
+    // OutputStrategy
+        //ConsoleOutput
+        //GuiOutput
     
 }
