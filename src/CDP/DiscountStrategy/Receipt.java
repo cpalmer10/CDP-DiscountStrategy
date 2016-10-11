@@ -5,6 +5,13 @@
  */
 package CDP.DiscountStrategy;
 
+import OutputStrategy.OutputStrategy;
+import StorageStrategy.DataStore;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
+
+
 /**
  *
  * @author Chris
@@ -12,7 +19,9 @@ package CDP.DiscountStrategy;
 public class Receipt {
     private Customer customer;
     private DataStore dataStore;
-    private LineItem[] lineItems;
+    private LineItem[] lineItems;    
+    
+        
 
     public Receipt(String customerId, DataStore dataStore) {
         this.dataStore = dataStore;
@@ -22,7 +31,22 @@ public class Receipt {
 
     public final void addProduct(String productId, int quantity, DataStore dataStore) {
         LineItem item = new LineItem(productId, quantity, dataStore);
+        addItemToLineItems(item);
         
     }
+    
+    private void addItemToLineItems(LineItem item){
+        LineItem[] temp = new LineItem[lineItems.length + 1];
+        
+        System.arraycopy(lineItems, 0, temp, 0, lineItems.length);
+
+        temp[temp.length - 1] = item;
+        lineItems = temp;
+        temp = null;
+    }
+    public final void printReceipt(OutputStrategy os){
+        os.printReceipt(customer, lineItems);
+    }
+        
     
 }
